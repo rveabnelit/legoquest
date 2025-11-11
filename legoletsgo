@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LIFE-LEGO | Таня, собери спокойствие</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(180deg, #f9d71c, #ffe57f);
+    color: #333;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  .screen {
+    display: none;
+    padding: 50px 20px;
+    min-height: 100vh;
+    transition: opacity 0.5s;
+  }
+  .active {
+    display: block;
+  }
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+  }
+  button {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 14px 24px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #ff6b6b;
+    transform: scale(1.05);
+  }
+  .lego-pile {
+    font-size: 40px;
+  }
+  .choice {
+    margin: 10px;
+  }
+  .lego-word {
+    font-size: 3em;
+    font-weight: bold;
+    color: #004aad;
+    animation: build 1.2s ease-out;
+  }
+  @keyframes build {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  .final {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- Этап 1 -->
+<div id="screen1" class="screen active">
+  <div class="lego-pile">🧱🟥🟨🟦🧱🟧🟩</div>
+  <h1>Разборка</h1>
+  <p>Иногда жизнь просто высыпает детали на стол.<br>Не спеши собирать — посмотри, какие цвета у твоего дня.</p>
+  <button onclick="nextScreen(2)">Разобраться</button>
+</div>
+
+<!-- Этап 2 -->
+<div id="screen2" class="screen">
+  <h1>Инструкция потерялась</h1>
+  <p>Инструкция потерялась.<br>Но, может, ты и не хочешь следовать чужой?</p>
+  <button onclick="showWord()">Строить по интуиции</button>
+  <div id="word" style="margin-top:30px;"></div>
+  <button id="next2" style="display:none;" onclick="nextScreen(3)">Дальше</button>
+</div>
+
+<!-- Этап 3 -->
+<div id="screen3" class="screen">
+  <h1>Фигурка дня</h1>
+  <p>Собери своего мини-человечка сегодняшнего дня 🧍‍♀️</p>
+  <div>
+    <select id="head" class="choice">
+      <option>😄</option>
+      <option>😴</option>
+      <option>🤔</option>
+    </select>
+    <select id="body" class="choice">
+      <option>☕</option>
+      <option>💼</option>
+      <option>🌈</option>
+    </select>
+    <select id="mood" class="choice">
+      <option>☀️</option>
+      <option>🌧️</option>
+      <option>💫</option>
+    </select>
+  </div>
+  <button onclick="showFigure()">Показать фигурку</button>
+  <div id="figure" style="margin-top:20px;font-size:2em;"></div>
+  <p id="figureText" style="display:none;">Какая бы ты ни была — сегодня ты собрана идеально 💛</p>
+  <button id="next3" style="display:none;" onclick="nextScreen(4)">Дальше</button>
+</div>
+
+<!-- Этап 4 -->
+<div id="screen4" class="screen">
+  <h1>Всё складывается</h1>
+  <p class="final">
+    Таня,<br>
+    жизнь сама собирает нужные детали.<br>
+    просто позволь ей щёлкнуть — и всё станет на место.<br><br>
+    🧱 однажды ты поймёшь,<br>
+    что даже то, что казалось не тем блоком,<br>
+    было частью твоего набора.<br><br>
+    — Руслан 🫶🏻
+  </p>
+  <button onclick="finish()">Поставить последний блок</button>
+  <p id="done" style="display:none;font-size:1.4em;margin-top:30px;">Щёлк. Готово.<br>Теперь просто живи. 🌿</p>
+  <div id="signature" style="margin-top:50px;display:none;opacity:0.6;font-size:0.9em;">LANI LOUD 🕊️</div>
+</div>
+
+<script>
+function nextScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen'+n).classList.add('active');
+}
+
+function showWord() {
+  const word = document.getElementById('word');
+  word.innerHTML = '<div class="lego-word">ДОВЕРЬСЯ</div>';
+  document.getElementById('next2').style.display = 'inline-block';
+}
+
+function showFigure() {
+  const head = document.getElementById('head').value;
+  const body = document.getElementById('body').value;
+  const mood = document.getElementById('mood').value;
+  const figure = document.getElementById('figure');
+  figure.innerHTML = `${head}<br>${body}<br>${mood}`;
+  document.getElementById('figureText').style.display = 'block';
+  document.getElementById('next3').style.display = 'inline-block';
+}
+
+function finish() {
+  document.getElementById('done').style.display = 'block';
+  document.getElementById('signature').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
